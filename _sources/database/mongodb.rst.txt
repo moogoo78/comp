@@ -1,6 +1,12 @@
 MongoDB
 ==============
 
+Installation
+-------------------
+
+debian
+~~~~~~~
+
 debian 版本比較舊, 預設 apt 跑不起來
 
 `Install MongoDB Community Edition on Debian — MongoDB Manual 3.6 <https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/>`__
@@ -11,7 +17,18 @@ debian 版本比較舊, 預設 apt 跑不起來
   $ mongod --dbpath db --smallfiles
   $ mongod --config /usr/local/etc/mongod.conf # macos
 
-**dump/import**
+
+error message: Unrecognized field 'snapshot'
+
+solution => docker
+
+clients only:
+
+  - buster (10): mongo-tools
+  - jessie (8): mongo-clients
+
+  
+**dump/export/import**
 
 .. code-block:: bash
 
@@ -20,9 +37,14 @@ debian 版本比較舊, 預設 apt 跑不起來
   $ mongorestore # 預設讀取 dump 資料夾
   $ mongorestore -d <db_name> --gzip <folder>
   $ mongorestore -h <host> -d <db_name> -c <collection_name> <bson_file_path>
-
+  # export
+  $ mongoexport -d <db_name> -c <collection_name> -q '{"foo":"bar"}' -o <out.json>
+  $ mongoexport -d <db_name> -c <collection_name> -q '{"_id":{"$oid":"some_object_id"}}' -o <out.json>
+  # import
+  $ mongoimport -d <db_name> -c <collection_name> <out.json>
 
 params
+
 .. code-block::
 
    -h：         host
@@ -69,6 +91,17 @@ select fieldname has value:
 
 
 
+group, sum:
+
+.. code-block::
+
+   db.<CollectionName>.aggregate([{$group:{_id: "$importNote", amt:{$sum: 1}}}])
+
+   # {"_id": "foo", "amt": 100 }
+   # {"_id": "bar", "amt": 300 }
+   # {"_id": "baz", "amt": 200 }
+
+
 aggregate/group/year-month:
 
 .. code-block::
@@ -108,4 +141,6 @@ check last modified (orderBy):
 .. code-block::
 
    db.getCollection('Annotations').find().sort({createTime: -1})
+
+
 

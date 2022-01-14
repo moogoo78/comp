@@ -46,6 +46,7 @@ MooGoo's note about computer.
    soft/tmux
    soft/excel
    soft/pandas
+   windows-wsl
    qna
 
 .. toctree::
@@ -57,3 +58,4 @@ MooGoo's note about computer.
    database/postgresql
    database/sqlite
    database/mongodb
+   database/redis

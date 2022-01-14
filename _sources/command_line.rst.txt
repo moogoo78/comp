@@ -176,6 +176,14 @@ for loop::
 **找檔案**
 
 
+複製某時間產生/修改的檔案
+
+.. code-block:: bash
+
+  find -type f -newerct 2020-01-01 # find file's create time order then 2020-01-01
+  find -type d -not -newermt 2020-01-01 -exec -r "{}" <SOMEWHERE> \; # find directory's modified time less than 2020-01-01 and copy to <SOMEWHERE>
+
+
 找目錄名稱::
 
   $ find / -type d -name "dir_name"
@@ -273,6 +281,24 @@ bzip2 的壓縮率比較大, 運算時間長
 * `AWK 简明教程 | 酷壳 - CoolShell.cn <http://coolshell.cn/articles/9070.html>`__
 
 
+
+user account
+------------------
+
+.. code-block:: bash
+
+   $ w # user currently on the machine and thier process
+   $ who # who currently logged in
+   $ users # users,  It reads all information from /var/run/utmp file.
+   $ last {username}
+
+   $ w -i # display IP
+   $ who -u # display PID
+   # check utmp, wtmp man
+
+   $ kill -HUP {pid}
+
+- `UNIX / Linux List Current Logged In Users - nixCraft <https://www.cyberciti.biz/faq/unix-linux-list-current-logged-in-users/>`__
 
 網路
 ----------------

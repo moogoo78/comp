@@ -40,12 +40,22 @@ Sphinx - reST (reStructuredText)
 
   大標題
   ========
-  
-  小標題 
+
+  小標題
   ---------
 
   段落
   ^^^^^^
+
+
+補充 heading convension:
+
+- # with overline, for parts
+- * with overline, for chapters
+- =, for sections
+- -, for subsections
+- ^, for subsubsections
+- “, for paragraphs
 
 .. note:: 中文字用的分段標示要長一點點
 

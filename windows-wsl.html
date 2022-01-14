@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>問題解決 &mdash; CompDocs 1.0 documentation</title>
+  <title>Windows WSL &mdash; CompDocs 1.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Database筆記" href="database/database.html" />
-    <link rel="prev" title="Windows WSL" href="windows-wsl.html" /> 
+    <link rel="next" title="問題解決" href="qna.html" />
+    <link rel="prev" title="Pandas" href="soft/pandas.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -114,15 +114,11 @@
 <li class="toctree-l1"><a class="reference internal" href="soft/tmux.html">tmux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="soft/excel.html">Excel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="soft/pandas.html">Pandas</a></li>
-<li class="toctree-l1"><a class="reference internal" href="windows-wsl.html">Windows WSL</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">問題解決</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#web-server">Web Server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#aws">AWS</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#bitbucket-multiple-ssh-keys">bitbucket multiple ssh keys</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#push-notification">push notification</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#python-package-pip">Python package (pip)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Windows WSL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#mount-external-disk">mount external disk</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="qna.html">問題解決</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Database</span></p>
 <ul>
@@ -177,13 +173,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>問題解決</li>
+      <li>Windows WSL</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/qna.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/windows-wsl.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -196,93 +192,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="id1">
-<h1>問題解決<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="web-server">
-<h2>Web Server<a class="headerlink" href="#web-server" title="Permalink to this headline">¶</a></h2>
-<p>AWS OS (CentOS) sudo pip command not found</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>路徑問題, sudo 不用一般的 $PATH 環境變數 (/etc/sudoers 檔案裡的 secure_path 定義決定使用的PATH)
-可以用 $ sudo `which pip` install xxx
-也可以加 soft link: sudo ln -s /usr/local/bin/pip /usr/bin/pip
-</pre></div>
-</div>
-</div>
-<div class="section" id="aws">
-<h2>AWS<a class="headerlink" href="#aws" title="Permalink to this headline">¶</a></h2>
-<p>eb cli 出現錯誤 (MacOS X Yosemite)</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
-  File <span class="s2">&quot;/Library/Frameworks/Python.framework/Versions/2.7/bin/eb&quot;</span>, line <span class="m">5</span>, in &lt;module&gt;
-    from pkg_resources import load_entry_point
-  File <span class="s2">&quot;build/bdist.macosx-10.6-intel/egg/pkg_resources.py&quot;</span>, line <span class="m">2912</span>, in &lt;module&gt;
+  <div class="section" id="windows-wsl">
+<h1>Windows WSL<a class="headerlink" href="#windows-wsl" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="mount-external-disk">
+<h2>mount external disk<a class="headerlink" href="#mount-external-disk" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ sudo mkdir /mnt/d
+$ sudo mount -t drvfs D: /mnt/d
 
-  File <span class="s2">&quot;build/bdist.macosx-10.6-intel/egg/pkg_resources.py&quot;</span>, line <span class="m">550</span>, in _build_master
-
-  File <span class="s2">&quot;build/bdist.macosx-10.6-intel/egg/pkg_resources.py&quot;</span>, line <span class="m">563</span>, in _build_from_requirements
-    keys2.append<span class="o">(</span>dist.key<span class="o">)</span>
-  File <span class="s2">&quot;build/bdist.macosx-10.6-intel/egg/pkg_resources.py&quot;</span>, line <span class="m">742</span>, in resolve
-
-pkg_resources.DistributionNotFound: <span class="nv">six</span><span class="o">==</span><span class="m">1</span>.8.0
-</pre></div>
-</div>
-<p>solved:</p>
-<ol class="arabic simple">
-<li><p>sudo pip install –upgrade setuptools</p></li>
-<li><p>sudo pip uninstall awsebcli</p></li>
-<li><p>sudo pip install awsebcli</p></li>
-<li><p>eb –version</p></li>
-</ol>
-</div>
-<div class="section" id="bitbucket-multiple-ssh-keys">
-<h2>bitbucket multiple ssh keys<a class="headerlink" href="#bitbucket-multiple-ssh-keys" title="Permalink to this headline">¶</a></h2>
-<p>在 bitbucket, git 多個帳號設定 ssh keys (免打密碼)</p>
-<p>產生除了預設之外的 ssh key pairs:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh-keygen -t rsa -C <span class="s2">&quot;your_email@youremail.com&quot;</span> -f ~/.ssh/other_key
-
-<span class="c1"># 複製到剪貼簿 (mac)</span>
-pbcoby &lt; ~/.ssh/other_key.pub
-</pre></div>
-</div>
-<p>設定 .ssh/config:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Host bitbucket-other
-    User git
-    Hostname bitbucket.org
-    PreferredAuthentications publickey
-    IdentitiesOnly yes
-    IdentityFile ~/.ssh/other_key
-</pre></div>
-</div>
-<p>這樣用 git 就不用打密碼了</p>
-</div>
-<div class="section" id="push-notification">
-<h2>push notification<a class="headerlink" href="#push-notification" title="Permalink to this headline">¶</a></h2>
-<p>利用 Corona, AWS/SNS 做推播 (push notification)</p>
-<div class="figure align-center" id="id2">
-<img alt="push\_notification" src="images/computer/push_notification.JPG" />
-<p class="caption"><span class="caption-text">push_notification</span><a class="headerlink" href="#id2" title="Permalink to this image">¶</a></p>
-</div>
-<ul class="simple">
-<li><p><a class="reference external" href="http://www.adventuresofanentrepreneur.net/creating-a-mobile-appsgames-company/setting-up-aws-sns-to-send-push-notifications-to-ios-devices">Setting up AWS SNS to send Push notifications to iOS devices -
-Adventures of an
-Entrepreneur</a>
-- AWS, SNS 的設定步驟</p></li>
-</ul>
-<p>用 AWS SNS 發送到 GCM 的步驟:</p>
-<ol class="arabic simple">
-<li><p>Google API 管理界面 (<a class="reference external" href="https://console.developers.google.com">https://console.developers.google.com</a>) 產生一個
-project, 從 project create 一個 API KEY (for server)</p></li>
-<li><p>用這個 key 到 SNS 界面產生一個 Apps</p></li>
-<li><p>google project id, 填到 config.lua (CoronaSDK)</p></li>
-</ol>
-<p>測試:</p>
-<ul class="simple">
-<li><p>GCM 的 token 亂給也可以加到 SNS 的 endpoint, 如果 APNS 的話 token
-亂給 boto 會收到 400 的錯誤</p></li>
-</ul>
-</div>
-<div class="section" id="python-package-pip">
-<h2>Python package (pip)<a class="headerlink" href="#python-package-pip" title="Permalink to this headline">¶</a></h2>
-<p>pip install gevent</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">FLAGS</span><span class="o">=</span><span class="s1">&#39;-std=c99&#39;</span> pip install gevent
+$ sudo umount /mnt/d
 </pre></div>
 </div>
 </div>
@@ -296,10 +213,10 @@ project, 從 project create 一個 API KEY (for server)</p></li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="database/database.html" class="btn btn-neutral float-right" title="Database筆記" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="qna.html" class="btn btn-neutral float-right" title="問題解決" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="windows-wsl.html" class="btn btn-neutral float-left" title="Windows WSL" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="soft/pandas.html" class="btn btn-neutral float-left" title="Pandas" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

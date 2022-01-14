@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>MongoDB &mdash; CompDocs 1.0 documentation</title>
+  <title>Redis &mdash; CompDocs 1.0 documentation</title>
   
 
   
@@ -35,8 +35,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Redis" href="redis.html" />
-    <link rel="prev" title="SQLite" href="sqlite.html" /> 
+    <link rel="prev" title="MongoDB" href="mongodb.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -123,16 +122,11 @@
 <li class="toctree-l1"><a class="reference internal" href="mysql.html">MySQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="postgresql.html">PostgreSQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sqlite.html">SQLite</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">MongoDB</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#debian">debian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mongodb.html">MongoDB</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Redis</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to">How to</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#commands">commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#snippets">Snippets</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="redis.html">Redis</a></li>
 </ul>
 
             
@@ -178,13 +172,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>MongoDB</li>
+      <li>Redis</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/database/mongodb.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/database/redis.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -197,119 +191,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="mongodb">
-<h1>MongoDB<a class="headerlink" href="#mongodb" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="debian">
-<h3>debian<a class="headerlink" href="#debian" title="Permalink to this headline">¶</a></h3>
-<p>debian 版本比較舊, 預設 apt 跑不起來</p>
-<p><a class="reference external" href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-debian/">Install MongoDB Community Edition on Debian — MongoDB Manual 3.6</a></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mongod --dbpath db
-$ mongod --dbpath db --smallfiles
-$ mongod --config /usr/local/etc/mongod.conf <span class="c1"># macos</span>
+  <div class="section" id="redis">
+<h1>Redis<a class="headerlink" href="#redis" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="how-to">
+<h2>How to<a class="headerlink" href="#how-to" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ redis-cli
 </pre></div>
 </div>
-<p>error message: Unrecognized field ‘snapshot’</p>
-<p>solution =&gt; docker</p>
-<p>clients only:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>buster (10): mongo-tools</p></li>
-<li><p>jessie (8): mongo-clients</p></li>
-</ul>
-</div></blockquote>
-<p><strong>dump/export/import</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mongodump <span class="c1"># 預設存成 dump 資料夾</span>
-$ mondodump -h &lt;host&gt; -d &lt;db_name&gt; -c &lt;collection_name&gt; -o &lt;output_path&gt;
-$ mongorestore <span class="c1"># 預設讀取 dump 資料夾</span>
-$ mongorestore -d &lt;db_name&gt; --gzip &lt;folder&gt;
-$ mongorestore -h &lt;host&gt; -d &lt;db_name&gt; -c &lt;collection_name&gt; &lt;bson_file_path&gt;
-<span class="c1"># export</span>
-$ mongoexport -d &lt;db_name&gt; -c &lt;collection_name&gt; -q <span class="s1">&#39;{&quot;foo&quot;:&quot;bar&quot;}&#39;</span> -o &lt;out.json&gt;
-$ mongoexport -d &lt;db_name&gt; -c &lt;collection_name&gt; -q <span class="s1">&#39;{&quot;_id&quot;:{&quot;$oid&quot;:&quot;some_object_id&quot;}}&#39;</span> -o &lt;out.json&gt;
-<span class="c1"># import</span>
-$ mongoimport -d &lt;db_name&gt; -c &lt;collection_name&gt; &lt;out.json&gt;
-</pre></div>
-</div>
-<p>params</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>-h：         host
--u：         user
--p：         password
---port：     port
--d：        database
--c：        collection
--o：        output (path)
-</pre></div>
-</div>
-</div>
-</div>
-<div class="section" id="commands">
-<h2>commands<a class="headerlink" href="#commands" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># show all databases</span>
-<span class="n">show</span> <span class="n">dbs</span>
-
-<span class="c1"># use database</span>
-<span class="n">use</span> <span class="n">myDatabase</span>
-
-<span class="c1"># show all collections</span>
-<span class="n">show</span> <span class="n">collections</span><span class="p">;</span>
-
-<span class="c1"># create a collection</span>
-<span class="n">db</span><span class="o">.</span><span class="n">createCollection</span><span class="p">(</span><span class="s2">&quot;myCollection&quot;</span><span class="p">);</span>
-
-<span class="c1"># update a collection</span>
-<span class="c1"># db.&lt;collectionName&gt;.save({&quot;_id&quot;: new ObjectId(&quot;someObjectId&quot;, &quot;field1&quot;: &quot;value1&quot;, &quot;field2&quot;: &quot;value2&quot;)});</span>
-<span class="c1"># 其他欄位沒有特別寫會被洗掉</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="snippets">
-<h2>Snippets<a class="headerlink" href="#snippets" title="Permalink to this headline">¶</a></h2>
-<p>select fieldname has value:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>db.mycollection.find({ &#39;fieldname&#39; : { $exists: true, $ne: null } });
-</pre></div>
-</div>
-<p>group, sum:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>db.&lt;CollectionName&gt;.aggregate([{$group:{_id: &quot;$importNote&quot;, amt:{$sum: 1}}}])
-
-# {&quot;_id&quot;: &quot;foo&quot;, &quot;amt&quot;: 100 }
-# {&quot;_id&quot;: &quot;bar&quot;, &quot;amt&quot;: 300 }
-# {&quot;_id&quot;: &quot;baz&quot;, &quot;amt&quot;: 200 }
-</pre></div>
-</div>
-<p>aggregate/group/year-month:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>db.getCollection(&#39;Annotations&#39;).aggregate( [
-{
-  $project: {
-    year: {$year: &quot;$createTime&quot;},
-    month: {$month: &quot;$createTime&quot;},
-  },
-},
-{
-  $group: {
-    _id: {
-      year: &#39;$year&#39;,
-      month: &#39;$month&#39;,
-    },
-    year: { $first : &quot;$year&quot; },
-    month: {$first: &quot;$month&quot;},
-    count: {
-      $sum: 1
-    },
-  },
-},
-{
-  $sort: {
-    &#39;_id.year&#39;: -1,
-    &#39;_id.month&#39;: -1
-  }
-},
-]);
-</pre></div>
-</div>
-<p>check last modified (orderBy):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">db</span><span class="o">.</span><span class="n">getCollection</span><span class="p">(</span><span class="s1">&#39;Annotations&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">find</span><span class="p">()</span><span class="o">.</span><span class="n">sort</span><span class="p">({</span><span class="n">createTime</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">})</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># check database</span>
+<span class="n">INFO</span> <span class="n">keyspace</span>
+<span class="c1"># use which database</span>
+<span class="n">SELECT</span> <span class="mi">0</span>
+<span class="n">SELECT</span> <span class="mi">1</span>
+<span class="c1"># display key with patterns</span>
+<span class="n">KEYS</span> <span class="o">*</span>
+<span class="c1"># delete key</span>
+<span class="n">DEL</span> <span class="n">to</span><span class="o">-</span><span class="n">be</span><span class="o">-</span><span class="n">delete</span><span class="o">-</span><span class="n">key</span>
 </pre></div>
 </div>
 </div>
@@ -323,10 +220,8 @@ $ mongoimport -d &lt;db_name&gt; -c &lt;collection_name&gt; &lt;out.json&gt;
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="redis.html" class="btn btn-neutral float-right" title="Redis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-      
-        <a href="sqlite.html" class="btn btn-neutral float-left" title="SQLite" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="mongodb.html" class="btn btn-neutral float-left" title="MongoDB" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

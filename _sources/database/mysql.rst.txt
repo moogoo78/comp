@@ -125,6 +125,28 @@ status:
    -- 欄位 col1 不重複, 符合條件, 總共筆數
    SELECT COUNT(DISTINCT <col1>) FROM <table> WHERE <col2> ...
 
+
+dump / restore:
+
+.. code-block:: bash
+
+    # dump all databases
+    $ mysqldump -u root -p --all-databases > all_databases.sql
+
+    # dump databases to seperate files
+    for DB in $(mysql -e 'show databases' -s --skip-column-names); do
+        mysqldump $DB > "$DB.sql";
+    done
+
+    # compressed dump file
+    $ mysqldump database_name | gzip > database_name.sql.gz
+
+    # save with timestamp
+    $ myysqldump  database_name > database_name-$(date +%Y%m%d).sql
+
+
+
+
 function
 ---------------------
 

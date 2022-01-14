@@ -105,12 +105,16 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="emacs.html">Emacs</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">GIT</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#init">init</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-to">How to</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sync-remote-repo">sync remote repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#commit-merge-commit">減少 commit(merge commit )</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git-clonebranch">git clone某一個branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#git-format-patch-commit-diff">git format-patch  把修改紀錄依照 commit 分別作出 diff 來</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#commit-branch">commit 錯 branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#commit-empty-folder">commit empty folder</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#basic">Basic</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#git-command">git command</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#reference">Reference</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#git-clone-add">git clone / add</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#git-reset-revert">git reset / revert</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#git-log">git log</a></li>
@@ -122,14 +126,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#repo">repo</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#tips">Tips</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#commit-merge-commit">減少 commit(merge commit )</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#git-clonebranch">git clone某一個branch</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#git-format-patch-commit-diff">git format-patch  把修改紀錄依照 commit 分別作出 diff 來</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#commit-branch">commit 錯 branch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#init">init</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">other</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#links">Links</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#setting">setting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#tools">Tools</a></li>
 </ul>
@@ -143,6 +144,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tmux.html">tmux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="excel.html">Excel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-wsl.html">Windows WSL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qna.html">問題解決</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Database</span></p>
@@ -152,6 +154,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../database/postgresql.html">PostgreSQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../database/sqlite.html">SQLite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../database/mongodb.html">MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database/redis.html">Redis</a></li>
 </ul>
 
             
@@ -229,67 +232,81 @@
 <dd class="field-odd"><p>docs</p>
 </dd>
 </dl>
-<div class="section" id="quick-start">
-<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="init">
-<h3>init<a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h3>
-<p>Server (Repository):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">example</span><span class="o">.</span><span class="n">git</span>
-<span class="n">cd</span> <span class="n">example</span><span class="o">.</span><span class="n">git</span>
-<span class="n">git</span> <span class="o">--</span><span class="n">bare</span> <span class="n">init</span> <span class="c1"># init加--bare, 表示只會在當下目錄放git的東西，不會有原始檔案, 如果要原始檔案再git clone出來就有了</span>
-</pre></div>
-</div>
-<p>Client:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">example</span>
-<span class="n">cd</span> <span class="n">example</span>
-<span class="n">git</span> <span class="n">init</span>
-<span class="n">touch</span> <span class="n">README</span>
-<span class="n">git</span> <span class="n">add</span> <span class="n">README</span>
-<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s1">&#39;first commit&#39;</span>
-<span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">ssh</span><span class="p">:</span><span class="o">//</span><span class="n">USERNAME</span><span class="nd">@REMOTE_SERVER</span><span class="o">/~/</span><span class="n">example</span><span class="o">.</span><span class="n">git</span>
-<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">master</span> <span class="p">(</span><span class="n">第一次之後只要打git</span> <span class="n">push就可以了</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Remote branch:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>local(foo)&gt; git push -u origin foo
-remote&gt; git checkout -b foo_test origin/foo # 可以不同branch name
-# 之後
-remote(foo_test)&gt; git pull
+<div class="section" id="how-to">
+<h2>How to<a class="headerlink" href="#how-to" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="sync-remote-repo">
+<h3>sync remote repo<a class="headerlink" href="#sync-remote-repo" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ git fetch &lt;remote name&gt; <span class="c1"># fetch specific remote branches</span>
+$ git fetch --all <span class="c1"># fetch all remote branches</span>
+<span class="c1"># same as</span>
+$ git remote update
 
-# pull remote branch
-$ git branch -f remote_branch_name origin/remote_branch_name
-$ git checkout remote_branch_name
-$ git push origin --delete &lt;remote_branch_name&gt;
+git pull <span class="c1"># has upstream</span>
+<span class="c1"># same as</span>
+$ git fetch &lt;remote name&gt; <span class="o">&amp;&amp;</span> git merge &lt;remote name&gt; &lt;branch name&gt;
+$ git pull &lt;remote name&gt; &lt;branch_name&gt; <span class="c1"># no upstream</span>
+$ git pull --rebase
+</pre></div>
+</div>
+</div>
+<div class="section" id="commit-merge-commit">
+<h3>減少 commit(merge commit )<a class="headerlink" href="#commit-merge-commit" title="Permalink to this headline">¶</a></h3>
+<p>善用 git revert, git-bisect, git-rebase -i</p>
+<p><a class="reference external" href="https://crealytics.com/blog/2010/07/09/5-reasons-keeping-git-commits-small/">5 Reasons for Keeping Your Git Commits as Small as You Can | Crealytics GmbH</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># a -&gt; b1 -&gt; b2 要變成 a -&gt; b</span>
+<span class="n">git</span><span class="o">-</span><span class="n">rebase</span> <span class="o">-</span><span class="n">i</span> <span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="nb">hash</span><span class="p">]</span>
+
+<span class="c1"># pick b1</span>
+<span class="c1"># pick b2 # 改成 squash b2</span>
+<span class="c1"># 修改 commit message (可以 commit b2 的 message)</span>
+<span class="c1"># 存檔離開就好了</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="git-clonebranch">
+<h3>git clone某一個branch<a class="headerlink" href="#git-clonebranch" title="Permalink to this headline">¶</a></h3>
+<p>以github的Flask當例子，要抓Flask的website branch</p>
+<p>先git clone一份Flask，看所有的branch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">a</span>
+</pre></div>
+</div>
+<p>可看到除了master外有一個remotes/origin/website，然後做一個叫website的branch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">website</span> <span class="n">remotes</span><span class="o">/</span><span class="n">origin</span><span class="o">/</span><span class="n">website</span>
+</pre></div>
+</div>
+<p>就會抓回到website這個branch，或是要直接拉下來看:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">remotes</span><span class="o">/</span><span class="n">origin</span><span class="o">/</span><span class="n">experimental</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="git-format-patch-commit-diff">
+<h3>git format-patch  把修改紀錄依照 commit 分別作出 diff 來<a class="headerlink" href="#git-format-patch-commit-diff" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>git format-patch [HASH] # 把從這個 [HASH] 之後 (不包括[HASH]) 的 commit 都分成一個個檔案的 patch</p>
+</div></blockquote>
+</div>
+<div class="section" id="commit-branch">
+<h3>commit 錯 branch<a class="headerlink" href="#commit-branch" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git reset --hard HEAD~1
+<span class="c1"># working dir 就會有 還沒 commit 前的狀態</span>
+git checkout b newbranch
+<span class="c1"># 重新 git add/commit 就好了</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="commit-empty-folder">
+<h3>commit empty folder<a class="headerlink" href="#commit-empty-folder" title="Permalink to this headline">¶</a></h3>
+<p>add a .gitignore in folder as follows</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span># Ignore everything in this directory
+*
+# except this file
+!.gitignore
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="basic">
-<h2>Basic<a class="headerlink" href="#basic" title="Permalink to this headline">¶</a></h2>
-<p><strong>Tree Roles</strong></p>
-<dl class="field-list simple">
-<dt class="field-odd">HEAD</dt>
-<dd class="field-odd"><p>最後一次的commit (Repo)</p>
-</dd>
-<dt class="field-even">Index</dt>
-<dd class="field-even"><p>目前要commit的 (Staging)</p>
-</dd>
-<dt class="field-odd">Working Dir</dt>
-<dd class="field-odd"><p>目前修改工作區</p>
-</dd>
-</dl>
-<p>set editor:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">core</span><span class="o">.</span><span class="n">editor</span> <span class="s2">&quot;vim&quot;</span>
-<span class="n">export</span> <span class="n">GIT_EDITOR</span><span class="o">=</span><span class="n">vim</span>
-<span class="c1"># or</span>
-<span class="n">export</span> <span class="n">VISUAL</span><span class="o">=</span><span class="n">vim</span>
-<span class="n">export</span> <span class="n">EDITOR</span><span class="o">=</span><span class="s2">&quot;$VISUAL&quot;</span>
-<span class="c1"># VISUAL 跟 EDITOR 都要設</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="git-command">
-<h2>git command<a class="headerlink" href="#git-command" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="reference">
+<h2>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="git-clone-add">
 <h3>git clone / add<a class="headerlink" href="#git-clone-add" title="Permalink to this headline">¶</a></h3>
 <p>git clone:</p>
@@ -525,59 +542,67 @@ git checkout <span class="o">{</span>second to last commit<span class="o">}</spa
 </div>
 </div>
 </div>
-<div class="section" id="tips">
-<h2>Tips<a class="headerlink" href="#tips" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p><a class="reference external" href="https://dev.to/lydiahallie/cs-visualized-useful-git-commands-37p1">🌳🚀 CS Visualized: Useful Git Commands - DEV Community 👩‍💻👨‍💻</a></p></li>
-</ul>
-<div class="section" id="commit-merge-commit">
-<h3>減少 commit(merge commit )<a class="headerlink" href="#commit-merge-commit" title="Permalink to this headline">¶</a></h3>
-<p>善用 git revert, git-bisect, git-rebase -i</p>
-<p><a class="reference external" href="https://crealytics.com/blog/2010/07/09/5-reasons-keeping-git-commits-small/">5 Reasons for Keeping Your Git Commits as Small as You Can | Crealytics GmbH</a></p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># a -&gt; b1 -&gt; b2 要變成 a -&gt; b</span>
-<span class="n">git</span><span class="o">-</span><span class="n">rebase</span> <span class="o">-</span><span class="n">i</span> <span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="nb">hash</span><span class="p">]</span>
+<div class="section" id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+<p><strong>Tree Roles</strong></p>
+<dl class="field-list simple">
+<dt class="field-odd">HEAD</dt>
+<dd class="field-odd"><p>最後一次的commit (Repo)</p>
+</dd>
+<dt class="field-even">Index</dt>
+<dd class="field-even"><p>目前要commit的 (Staging)</p>
+</dd>
+<dt class="field-odd">Working Dir</dt>
+<dd class="field-odd"><p>目前修改工作區</p>
+</dd>
+</dl>
+<p>set editor:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="k">global</span> <span class="n">core</span><span class="o">.</span><span class="n">editor</span> <span class="s2">&quot;vim&quot;</span>
+<span class="n">export</span> <span class="n">GIT_EDITOR</span><span class="o">=</span><span class="n">vim</span>
+<span class="c1"># or</span>
+<span class="n">export</span> <span class="n">VISUAL</span><span class="o">=</span><span class="n">vim</span>
+<span class="n">export</span> <span class="n">EDITOR</span><span class="o">=</span><span class="s2">&quot;$VISUAL&quot;</span>
+<span class="c1"># VISUAL 跟 EDITOR 都要設</span>
+</pre></div>
+</div>
+<div class="section" id="init">
+<h3>init<a class="headerlink" href="#init" title="Permalink to this headline">¶</a></h3>
+<p>Server (Repository):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">example</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">example</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="o">--</span><span class="n">bare</span> <span class="n">init</span> <span class="c1"># init加--bare, 表示只會在當下目錄放git的東西，不會有原始檔案, 如果要原始檔案再git clone出來就有了</span>
+</pre></div>
+</div>
+<p>Client:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="n">example</span>
+<span class="n">cd</span> <span class="n">example</span>
+<span class="n">git</span> <span class="n">init</span>
+<span class="n">touch</span> <span class="n">README</span>
+<span class="n">git</span> <span class="n">add</span> <span class="n">README</span>
+<span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s1">&#39;first commit&#39;</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">ssh</span><span class="p">:</span><span class="o">//</span><span class="n">USERNAME</span><span class="nd">@REMOTE_SERVER</span><span class="o">/~/</span><span class="n">example</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">master</span> <span class="p">(</span><span class="n">第一次之後只要打git</span> <span class="n">push就可以了</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Remote branch:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>local(foo)&gt; git push -u origin foo
+remote&gt; git checkout -b foo_test origin/foo # 可以不同branch name
+# 之後
+remote(foo_test)&gt; git pull
 
-<span class="c1"># pick b1</span>
-<span class="c1"># pick b2 # 改成 squash b2</span>
-<span class="c1"># 修改 commit message (可以 commit b2 的 message)</span>
-<span class="c1"># 存檔離開就好了</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="git-clonebranch">
-<h3>git clone某一個branch<a class="headerlink" href="#git-clonebranch" title="Permalink to this headline">¶</a></h3>
-<p>以github的Flask當例子，要抓Flask的website branch</p>
-<p>先git clone一份Flask，看所有的branch:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">branch</span> <span class="o">-</span><span class="n">a</span>
-</pre></div>
-</div>
-<p>可看到除了master外有一個remotes/origin/website，然後做一個叫website的branch:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="o">-</span><span class="n">b</span> <span class="n">website</span> <span class="n">remotes</span><span class="o">/</span><span class="n">origin</span><span class="o">/</span><span class="n">website</span>
-</pre></div>
-</div>
-<p>就會抓回到website這個branch，或是要直接拉下來看:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">checkout</span> <span class="n">remotes</span><span class="o">/</span><span class="n">origin</span><span class="o">/</span><span class="n">experimental</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="git-format-patch-commit-diff">
-<h3>git format-patch  把修改紀錄依照 commit 分別作出 diff 來<a class="headerlink" href="#git-format-patch-commit-diff" title="Permalink to this headline">¶</a></h3>
-<blockquote>
-<div><p>git format-patch [HASH] # 把從這個 [HASH] 之後 (不包括[HASH]) 的 commit 都分成一個個檔案的 patch</p>
-</div></blockquote>
-</div>
-<div class="section" id="commit-branch">
-<h3>commit 錯 branch<a class="headerlink" href="#commit-branch" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git reset --hard HEAD~1
-<span class="c1"># working dir 就會有 還沒 commit 前的狀態</span>
-git checkout b newbranch
-<span class="c1"># 重新 git add/commit 就好了</span>
+# pull remote branch
+$ git branch -f remote_branch_name origin/remote_branch_name
+$ git checkout remote_branch_name
+$ git push origin --delete &lt;remote_branch_name&gt;
+
+# push to remote branch
+$ git push origin local_branch_name:remote_branch_name
 </pre></div>
 </div>
 </div>
 </div>
-<div class="section" id="id1">
-<h2>other<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="links">
+<h2>Links<a class="headerlink" href="#links" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="http://www.slideshare.net/littlebtc/git-5528339">寫給大家的 Git 教學</a></p></li>
 <li><p><a class="reference external" href="http://nvie.com/posts/a-successful-git-branching-model/">A successful Git branching model » nvie.com</a> git開發web方法</p></li>
@@ -587,6 +612,7 @@ git checkout b newbranch
 <li><p><a class="reference external" href="http://www-cs-students.stanford.edu/~blynn/gitmagic/">Git Magic - Preface</a></p></li>
 <li><p><a class="reference external" href="http://ihower.tw/blog/archives/6696/?utm_source=feedburner&amp;utm_medium=feed&amp;utm_campaign=Feed:+ihower+({|ihower.tw|+blog+})&amp;utm_content=Google+Reader">Git 教育訓練課程投影片 (2012) | ihower { blogging }</a></p></li>
 <li><p>guides (快速) <a class="reference external" href="https://github.com/thoughtbot/guides/tree/master/protocol/git">guides/protocol/git at master · thoughtbot/guides</a></p></li>
+<li><p><a class="reference external" href="https://dev.to/lydiahallie/cs-visualized-useful-git-commands-37p1">🌳🚀 CS Visualized: Useful Git Commands - DEV Community 👩‍💻👨‍💻</a></p></li>
 </ul>
 </div>
 <div class="section" id="setting">

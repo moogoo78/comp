@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="SQLite" href="sqlite.html" />
+    <link rel="next" title="PostgreSQL" href="postgresql.html" />
     <link rel="prev" title="Database筆記" href="database.html" /> 
 </head>
 
@@ -114,6 +114,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../soft/tmux.html">tmux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../soft/excel.html">Excel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../soft/pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../windows-wsl.html">Windows WSL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qna.html">問題解決</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Database</span></p>
@@ -134,8 +135,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#others">others</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="postgresql.html">PostgreSQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="sqlite.html">SQLite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="mongodb.html">MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="redis.html">Redis</a></li>
 </ul>
 
             
@@ -295,6 +298,22 @@ LIMIT -1 OFFSET 100 # 從 100 開始, 沒有限制 (SQLite)
 
 <span class="c1">-- 欄位 col1 不重複, 符合條件, 總共筆數</span>
 <span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span> <span class="o">&lt;</span><span class="n">col1</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">FROM</span> <span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span> <span class="k">WHERE</span> <span class="o">&lt;</span><span class="n">col2</span><span class="o">&gt;</span> <span class="p">...</span>
+</pre></div>
+</div>
+<p>dump / restore:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># dump all databases</span>
+$ mysqldump -u root -p --all-databases &gt; all_databases.sql
+
+<span class="c1"># dump databases to seperate files</span>
+<span class="k">for</span> DB in <span class="k">$(</span>mysql -e <span class="s1">&#39;show databases&#39;</span> -s --skip-column-names<span class="k">)</span><span class="p">;</span> <span class="k">do</span>
+    mysqldump <span class="nv">$DB</span> &gt; <span class="s2">&quot;</span><span class="nv">$DB</span><span class="s2">.sql&quot;</span><span class="p">;</span>
+<span class="k">done</span>
+
+<span class="c1"># compressed dump file</span>
+$ mysqldump database_name <span class="p">|</span> gzip &gt; database_name.sql.gz
+
+<span class="c1"># save with timestamp</span>
+$ myysqldump  database_name &gt; database_name-<span class="k">$(</span>date +%Y%m%d<span class="k">)</span>.sql
 </pre></div>
 </div>
 </div>
@@ -643,7 +662,7 @@ $ chmod -R 700 /var/lib/mysql/*
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="sqlite.html" class="btn btn-neutral float-right" title="SQLite" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="postgresql.html" class="btn btn-neutral float-right" title="PostgreSQL" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="database.html" class="btn btn-neutral float-left" title="Database筆記" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

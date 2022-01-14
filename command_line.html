@@ -113,6 +113,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#compress-depress">壓縮/解壓縮 compress/depress</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#user-account">user account</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id2">網路</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#ssh">SSH</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#service">Service</a><ul>
@@ -137,6 +138,7 @@
 <li class="toctree-l1"><a class="reference internal" href="soft/tmux.html">tmux</a></li>
 <li class="toctree-l1"><a class="reference internal" href="soft/excel.html">Excel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="soft/pandas.html">Pandas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="windows-wsl.html">Windows WSL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="qna.html">問題解決</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Database</span></p>
@@ -146,6 +148,7 @@
 <li class="toctree-l1"><a class="reference internal" href="database/postgresql.html">PostgreSQL</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database/sqlite.html">SQLite</a></li>
 <li class="toctree-l1"><a class="reference internal" href="database/mongodb.html">MongoDB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="database/redis.html">Redis</a></li>
 </ul>
 
             
@@ -346,6 +349,11 @@ done
 </pre></div>
 </div>
 <p><strong>找檔案</strong></p>
+<p>複製某時間產生/修改的檔案</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>find -type f -newerct <span class="m">2020</span>-01-01 <span class="c1"># find file&#39;s create time order then 2020-01-01</span>
+find -type d -not -newermt <span class="m">2020</span>-01-01 -exec -r <span class="s2">&quot;{}&quot;</span> &lt;SOMEWHERE&gt; <span class="se">\;</span> <span class="c1"># find directory&#39;s modified time less than 2020-01-01 and copy to &lt;SOMEWHERE&gt;</span>
+</pre></div>
+</div>
 <p>找目錄名稱:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ find / -type d -name &quot;dir_name&quot;
 </pre></div>
@@ -452,6 +460,24 @@ $ grep -v -e <span class="s2">&quot;bar&quot;</span> <span class="c1"># exclude 
 <li><p><a class="reference external" href="http://coolshell.cn/articles/9070.html">AWK 简明教程 | 酷壳 - CoolShell.cn</a></p></li>
 </ul>
 </div>
+</div>
+<div class="section" id="user-account">
+<h2>user account<a class="headerlink" href="#user-account" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ w <span class="c1"># user currently on the machine and thier process</span>
+$ who <span class="c1"># who currently logged in</span>
+$ users <span class="c1"># users,  It reads all information from /var/run/utmp file.</span>
+$ last <span class="o">{</span>username<span class="o">}</span>
+
+$ w -i <span class="c1"># display IP</span>
+$ who -u <span class="c1"># display PID</span>
+<span class="c1"># check utmp, wtmp man</span>
+
+$ <span class="nb">kill</span> -HUP <span class="o">{</span>pid<span class="o">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.cyberciti.biz/faq/unix-linux-list-current-logged-in-users/">UNIX / Linux List Current Logged In Users - nixCraft</a></p></li>
+</ul>
 </div>
 <div class="section" id="id2">
 <h2>網路<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
