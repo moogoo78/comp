@@ -2,8 +2,28 @@
 PostgreSQL
 *****************
 
+<<<<<<< HEAD
 How-to
 ==============
+=======
+
+How-to
+--------------------
+
+daterange
+
+overlap
+
+.. code-block:: sql
+
+    SELECT * FROM my_table WHERE DATERANGE(my_start::date , my_end::date, '[)') && DATERANGE( date '2018-01-01', date '2018-01-31', '[)')
+
+
+Install
+-------------------
+
+mac php (with-postgresql), 為了用 adminer.php:
+>>>>>>> m
 
 Data Dump/Import
 -------------------------------------
